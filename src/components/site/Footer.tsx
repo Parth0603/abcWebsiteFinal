@@ -1,33 +1,23 @@
 import { Link } from "@tanstack/react-router";
-import { Github, Twitter, MessagesSquare, Send } from "lucide-react";
+import { Github, Twitter, Linkedin, Instagram } from "lucide-react";
 import { Logo } from "./Logo";
 
 const groups = [
   {
-    title: "Ecosystem",
+    title: "Explore",
     links: [
-      { to: "/about", label: "About ABC" },
-      { to: "/team", label: "Team" },
-      { to: "/partners", label: "Partners" },
-      { to: "/community", label: "Community" },
-    ],
-  },
-  {
-    title: "Build",
-    links: [
-      { to: "/projects", label: "Projects" },
-      { to: "/hackathons", label: "Hackathons" },
-      { to: "/workshops", label: "Workshops" },
+      { to: "/about", label: "About" },
       { to: "/events", label: "Events" },
+      { to: "/workshops", label: "Workshops" },
+      { to: "/team", label: "Team" },
     ],
   },
   {
-    title: "Learn",
+    title: "Community",
     links: [
-      { to: "/learning", label: "Learning Hub" },
-      { to: "/resources", label: "Resources" },
-      { to: "/gallery", label: "Gallery" },
-      { to: "/contact", label: "Join Us" },
+      { to: "/contact", label: "Join Community" },
+      { to: "/about", label: "Our Story" },
+      { to: "/events", label: "Past Events" },
     ],
   },
 ] as const;
@@ -38,18 +28,18 @@ export function Footer() {
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-brand/40 to-transparent" />
       <div className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
         <div className="grid gap-12 md:grid-cols-12">
-          <div className="md:col-span-5">
+          <div className="md:col-span-6">
             <Logo />
-            <p className="mt-5 max-w-sm text-sm leading-relaxed text-muted-foreground">
-              A student-led Web3 builder ecosystem at Acropolis Institute of Technology and
-              Research, Indore. Builders, developers, and designers shipping the future.
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-muted-foreground">
+              A student-led Web3 community at Acropolis Institute of Technology and Research, Indore.
+              We build, learn, and collaborate through workshops, hackathons, and ecosystem programs.
             </p>
             <div className="mt-6 flex items-center gap-2">
               {[
-                { icon: Github, label: "GitHub" },
+                { icon: Instagram, label: "Instagram" },
+                { icon: Linkedin, label: "LinkedIn" },
                 { icon: Twitter, label: "X / Twitter" },
-                { icon: MessagesSquare, label: "Discord" },
-                { icon: Send, label: "Telegram" },
+                { icon: Github, label: "GitHub" },
               ].map(({ icon: Icon, label }) => (
                 <a
                   key={label}
@@ -63,13 +53,13 @@ export function Footer() {
             </div>
           </div>
           {groups.map((g) => (
-            <div key={g.title} className="md:col-span-2">
+            <div key={g.title} className="md:col-span-3">
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
                 {g.title}
               </div>
               <ul className="mt-4 space-y-2.5">
                 {g.links.map((l) => (
-                  <li key={l.to}>
+                  <li key={l.label}>
                     <Link to={l.to} className="text-sm text-foreground/80 transition-colors hover:text-foreground">
                       {l.label}
                     </Link>
@@ -78,15 +68,14 @@ export function Footer() {
               </ul>
             </div>
           ))}
-          <div className="md:col-span-1" />
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-border/60 pt-6 md:flex-row md:items-center">
           <p className="font-mono text-[11px] text-muted-foreground">
-            © {new Date().getFullYear()} Acropolis Blockchain Club. Built by students, for builders.
+            © {new Date().getFullYear()} Acropolis Blockchain Club. Built by students at AITR Indore.
           </p>
           <p className="font-mono text-[11px] text-muted-foreground">
-            ACROPOLIS · INDORE · IN
+            ACROPOLIS · INDORE · INDIA
           </p>
         </div>
       </div>

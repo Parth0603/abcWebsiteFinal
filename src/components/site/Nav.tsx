@@ -4,17 +4,11 @@ import { Menu, X, ArrowUpRight } from "lucide-react";
 import { Logo } from "./Logo";
 
 const links = [
+  { to: "/", label: "Home" },
   { to: "/about", label: "About" },
   { to: "/events", label: "Events" },
   { to: "/workshops", label: "Workshops" },
-  { to: "/hackathons", label: "Hackathons" },
-  { to: "/learning", label: "Learning" },
-  { to: "/projects", label: "Projects" },
   { to: "/team", label: "Team" },
-  { to: "/partners", label: "Partners" },
-  { to: "/community", label: "Community" },
-  { to: "/gallery", label: "Gallery" },
-  { to: "/resources", label: "Resources" },
 ] as const;
 
 export function Nav() {
@@ -37,12 +31,13 @@ export function Nav() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-5 lg:px-8">
         <Logo />
         <nav className="hidden items-center gap-1 lg:flex">
-          {links.slice(0, 7).map((l) => (
+          {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               className="rounded-md px-3 py-1.5 text-[13px] text-muted-foreground transition-colors hover:bg-white/5 hover:text-foreground"
               activeProps={{ className: "text-foreground bg-white/5" }}
+              activeOptions={{ exact: l.to === "/" }}
             >
               {l.label}
             </Link>
@@ -74,6 +69,7 @@ export function Nav() {
                 onClick={() => setOpen(false)}
                 className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-white/5 hover:text-foreground"
                 activeProps={{ className: "text-foreground bg-white/5" }}
+                activeOptions={{ exact: l.to === "/" }}
               >
                 {l.label}
               </Link>

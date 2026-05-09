@@ -6,10 +6,10 @@ import { ArrowUpRight, BookOpen, FileText, GitBranch, Video } from "lucide-react
 export const Route = createFileRoute("/learning")({
   head: () => ({
     meta: [
-      { title: "Learning Hub — ABC" },
+      { title: "Learning Hub , ABC" },
       { name: "description", content: "Three-tier Web3 curriculum, lecture notes, and curated resources." },
       { property: "og:title", content: "ABC Learning Hub" },
-      { property: "og:description", content: "From wallets to zero-knowledge — the ABC curriculum." },
+      { property: "og:description", content: "From wallets to zero-knowledge , the ABC curriculum." },
     ],
   }),
   component: Learning,
@@ -46,7 +46,7 @@ function Learning() {
       <PageHeader
         eyebrow="Learning Hub"
         title={<>A structured gateway into <span className="text-brand-gradient">Web3.</span></>}
-        description="A curriculum maintained by ABC engineers — from your first wallet to building production ZK applications."
+        description="A curriculum maintained by ABC engineers , from your first wallet to building production ZK applications."
       />
       <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
         <div className="space-y-5">

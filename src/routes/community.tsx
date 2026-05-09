@@ -6,7 +6,7 @@ import { MessagesSquare, Send, Github, Twitter } from "lucide-react";
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community — ABC" },
+      { title: "Community , ABC" },
       { name: "description", content: "Join the ABC community on Discord, Telegram, and GitHub." },
       { property: "og:title", content: "ABC Community" },
       { property: "og:description", content: "A network of builders, mentors, and ecosystem partners." },
@@ -28,7 +28,7 @@ function Community() {
       <PageHeader
         eyebrow="Community"
         title={<>Where the <span className="text-brand-gradient">builders live.</span></>}
-        description="ABC isn't a Wednesday meeting — it's a always-on network of students, mentors, and ecosystem operators in the same channels."
+        description="ABC isn't a Wednesday meeting , it's a always-on network of students, mentors, and ecosystem operators in the same channels."
       />
       <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
         <div className="grid gap-5 md:grid-cols-2">

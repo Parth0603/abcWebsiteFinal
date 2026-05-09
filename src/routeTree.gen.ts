@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as WorkshopsRouteImport } from './routes/workshops'
 import { Route as TeamRouteImport } from './routes/team'
 import { Route as ResourcesRouteImport } from './routes/resources'
-import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as LearningRouteImport } from './routes/learning'
 import { Route as HackathonsRouteImport } from './routes/hackathons'
@@ -36,11 +35,6 @@ const TeamRoute = TeamRouteImport.update({
 const ResourcesRoute = ResourcesRouteImport.update({
   id: '/resources',
   path: '/resources',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProjectsRoute = ProjectsRouteImport.update({
-  id: '/projects',
-  path: '/projects',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PartnersRoute = PartnersRouteImport.update({
@@ -99,7 +93,6 @@ export interface FileRoutesByFullPath {
   '/hackathons': typeof HackathonsRoute
   '/learning': typeof LearningRoute
   '/partners': typeof PartnersRoute
-  '/projects': typeof ProjectsRoute
   '/resources': typeof ResourcesRoute
   '/team': typeof TeamRoute
   '/workshops': typeof WorkshopsRoute
@@ -114,7 +107,6 @@ export interface FileRoutesByTo {
   '/hackathons': typeof HackathonsRoute
   '/learning': typeof LearningRoute
   '/partners': typeof PartnersRoute
-  '/projects': typeof ProjectsRoute
   '/resources': typeof ResourcesRoute
   '/team': typeof TeamRoute
   '/workshops': typeof WorkshopsRoute
@@ -130,7 +122,6 @@ export interface FileRoutesById {
   '/hackathons': typeof HackathonsRoute
   '/learning': typeof LearningRoute
   '/partners': typeof PartnersRoute
-  '/projects': typeof ProjectsRoute
   '/resources': typeof ResourcesRoute
   '/team': typeof TeamRoute
   '/workshops': typeof WorkshopsRoute
@@ -147,7 +138,6 @@ export interface FileRouteTypes {
     | '/hackathons'
     | '/learning'
     | '/partners'
-    | '/projects'
     | '/resources'
     | '/team'
     | '/workshops'
@@ -162,7 +152,6 @@ export interface FileRouteTypes {
     | '/hackathons'
     | '/learning'
     | '/partners'
-    | '/projects'
     | '/resources'
     | '/team'
     | '/workshops'
@@ -177,7 +166,6 @@ export interface FileRouteTypes {
     | '/hackathons'
     | '/learning'
     | '/partners'
-    | '/projects'
     | '/resources'
     | '/team'
     | '/workshops'
@@ -193,7 +181,6 @@ export interface RootRouteChildren {
   HackathonsRoute: typeof HackathonsRoute
   LearningRoute: typeof LearningRoute
   PartnersRoute: typeof PartnersRoute
-  ProjectsRoute: typeof ProjectsRoute
   ResourcesRoute: typeof ResourcesRoute
   TeamRoute: typeof TeamRoute
   WorkshopsRoute: typeof WorkshopsRoute
@@ -220,13 +207,6 @@ declare module '@tanstack/react-router' {
       path: '/resources'
       fullPath: '/resources'
       preLoaderRoute: typeof ResourcesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/projects': {
-      id: '/projects'
-      path: '/projects'
-      fullPath: '/projects'
-      preLoaderRoute: typeof ProjectsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/partners': {
@@ -305,7 +285,6 @@ const rootRouteChildren: RootRouteChildren = {
   HackathonsRoute: HackathonsRoute,
   LearningRoute: LearningRoute,
   PartnersRoute: PartnersRoute,
-  ProjectsRoute: ProjectsRoute,
   ResourcesRoute: ResourcesRoute,
   TeamRoute: TeamRoute,
   WorkshopsRoute: WorkshopsRoute,
@@ -313,3 +292,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

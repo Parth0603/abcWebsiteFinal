@@ -59,13 +59,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "ABC — Acropolis Blockchain Club" },
+      { title: "ABC , Acropolis Blockchain Club" },
       {
         name: "description",
         content:
           "A student-led Web3 builder community at Acropolis Institute of Technology and Research, Indore. Hackathons, workshops, and real-world blockchain projects.",
       },
-      { property: "og:title", content: "ABC — Acropolis Blockchain Club" },
+      { property: "og:title", content: "ABC , Acropolis Blockchain Club" },
       { property: "og:description", content: "Building the next generation of Web3 innovators." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

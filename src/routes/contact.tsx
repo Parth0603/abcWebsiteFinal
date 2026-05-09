@@ -7,7 +7,7 @@ import { ArrowUpRight, Mail, MapPin, MessagesSquare } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Join Us — ABC" },
+      { title: "Join Us , ABC" },
       { name: "description", content: "Apply to join the Acropolis Blockchain Club's next cohort." },
       { property: "og:title", content: "Join ABC" },
       { property: "og:description", content: "Apply to the next builder cohort." },

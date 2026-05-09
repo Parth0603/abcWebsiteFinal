@@ -1,29 +1,49 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
-import { motion } from "framer-motion";
+import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
+import { Link } from "@tanstack/react-router";
+import { Reveal } from "@/components/site/Reveal";
+import { Eyebrow, SectionHeader } from "@/components/site/Section";
 import {
   ArrowUpRight,
-  Code2,
-  Layers,
-  GraduationCap,
-  Rocket,
+  Info,
+  Sparkles,
+  CalendarIcon,
+  MapPinIcon,
+  BriefcaseIcon,
+  UserIcon,
+  BookOpen,
+  Trophy,
   Users2,
-  Mic2,
-  Compass,
-  Box,
-  Music,
-  Building2,
-  Github,
-  Twitter,
-  MessagesSquare,
 } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Badge } from "@/components/ui/badge";
+import { eventDetails } from "@/data/events";
 import { Hero } from "@/components/site/Hero";
-import { Reveal } from "@/components/site/Reveal";
-import { SectionHeader, Eyebrow } from "@/components/site/Section";
-import hackathonImg from "@/assets/hackathon.jpg";
-import meetupImg from "@/assets/meetup.jpg";
-import workshopImg from "@/assets/workshop.jpg";
+import blockathonImg from "@/assets/images/blockathon.png";
+import hashedImg from "@/assets/images/hashed.png";
+import web3waveImg from "@/assets/images/web3wave.png";
+import collageImg from "@/assets/community-collage.jpg";
 
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Acropolis Blockchain Club · Student Web3 Community at AITR Indore" },
+      {
+        name: "description",
+        content:
+          "ABC is a student-led Web3 community at Acropolis Institute Indore, running workshops, hackathons, speaker sessions, and ecosystem collaborations.",
+      },
+      { property: "og:title", content: "Acropolis Blockchain Club" },
+      {
+        property: "og:description",
+        content: "Workshops, hackathons, and ecosystem collaboration at AITR Indore.",
+      },
+    ],
+  }),
   component: Home,
 });
 
@@ -31,190 +51,126 @@ function Home() {
   return (
     <>
       <Hero />
-      <SocialProof />
-      <AboutPreview />
-      <FeaturedActivities />
-      <LearningEcosystem />
-      <ProjectsShowcase />
-      <EventsTimeline />
-      <Sponsors />
-      <TeamPreview />
-      <CommunityCTA />
+      <CommunitySnapshot />
+      <FeaturedEvents />
+      <CommunityMoments />
+      <Collaborations />
+      <Achievements />
+      <JoinCTA />
     </>
   );
 }
 
-/* ---------------- Social Proof ---------------- */
+/* ---------------- Community Snapshot ---------------- */
 
-function SocialProof() {
+function CommunitySnapshot() {
   const items = [
-    { label: "Solana Ecosystem", value: "Meet-up Indore" },
-    { label: "Polygon", value: "Workshop Series" },
-    { label: "ETHIndia", value: "Hackathon Cohort" },
-    { label: "Devfolio", value: "Builder Network" },
+    { icon: BookOpen, k: "Workshops", v: "Hands-on sessions across Web3 basics, smart contracts, and ecosystem tools." },
+    { icon: Trophy, k: "Block-A-Thon", v: "54 teams and 198 participants in our flagship campus hackathon." },
+    { icon: Users2, k: "Speaker Sessions", v: "Conversations with founders, engineers, and ecosystem leads." },
+    { icon: Sparkles, k: "Collaborations", v: "Programs run with Solana, Metaschool, Systango, and Central DAO." },
   ];
   return (
-    <section className="relative border-y border-border/60 bg-surface/30">
-      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px overflow-hidden bg-border md:grid-cols-4">
-        {items.map((it, i) => (
-          <Reveal key={it.label} delay={i * 0.05}>
-            <div className="group flex h-full flex-col justify-between gap-3 bg-background p-6 transition-colors hover:bg-surface">
-              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
-                Ecosystem · 0{i + 1}
-              </div>
-              <div>
-                <div className="font-display text-lg font-semibold tracking-tight">{it.label}</div>
-                <div className="text-sm text-muted-foreground">{it.value}</div>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- About Preview ---------------- */
-
-function AboutPreview() {
-  return (
-    <section className="relative py-28 lg:py-40">
-      <div className="mx-auto grid max-w-7xl gap-16 px-5 lg:grid-cols-12 lg:px-8">
-        <div className="lg:col-span-5">
-          <Reveal>
-            <Eyebrow>Who we are</Eyebrow>
-            <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-              Not a club.
-              <br />
-              <span className="text-brand-gradient">A builder ecosystem.</span>
-            </h2>
-          </Reveal>
-        </div>
-        <div className="lg:col-span-7">
-          <Reveal delay={0.1}>
-            <p className="text-lg leading-relaxed text-foreground/90">
-              ABC is a student-run innovation lab where developers, designers, and researchers
-              ship real products on-chain. We don't run lectures — we run cohorts, hack nights,
-              and ecosystem meet-ups that turn curiosity into deployed contracts.
-            </p>
-          </Reveal>
-          <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3">
-            {[
-              { t: "Mission", d: "Make Indore a magnet for early-stage Web3 builders." },
-              { t: "Culture", d: "Async, opinionated, ship-first. Open to all majors." },
-              { t: "Scope", d: "Protocols, dApps, tooling, research — anything on-chain." },
-            ].map((x, i) => (
-              <Reveal key={x.t} delay={0.15 + i * 0.07}>
-                <div className="bg-surface/40 p-6">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-brand">
-                    0{i + 1}
-                  </div>
-                  <div className="mt-3 font-display text-base font-semibold">{x.t}</div>
-                  <p className="mt-1.5 text-sm text-muted-foreground">{x.d}</p>
+    <section className="relative border-y border-border/60 bg-surface/30 py-20 lg:py-24">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
+        <Reveal>
+          <Eyebrow>Community Snapshot</Eyebrow>
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            What ABC has been up to.
+          </h2>
+        </Reveal>
+        <div className="mt-12 grid gap-px overflow-hidden rounded-xl border border-border bg-border md:grid-cols-2 lg:grid-cols-4">
+          {items.map((it, i) => (
+            <Reveal key={it.k} delay={i * 0.05}>
+              <div className="flex h-full flex-col gap-4 bg-background p-6">
+                <it.icon className="h-5 w-5 text-brand" />
+                <div>
+                  <div className="font-display text-base font-semibold tracking-tight">{it.k}</div>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{it.v}</p>
                 </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal delay={0.4}>
-            <Link
-              to="/about"
-              className="mt-10 inline-flex items-center gap-2 text-sm font-medium text-foreground hover:text-brand"
-            >
-              Read the full story <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </Reveal>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------------- Featured Activities ---------------- */
+/* ---------------- Featured Events ---------------- */
 
-function FeaturedActivities() {
-  const cards = [
+function FeaturedEvents() {
+  const [selectedEvent, setSelectedEvent] = useState<string | null>(null);
+  const selectedDetails = selectedEvent ? eventDetails[selectedEvent] : null;
+
+  const events = [
     {
-      icon: Mic2,
-      tag: "Flagship",
-      title: "Solana Meet-up Indore",
-      copy: "Bringing Solana's global ecosystem to Tier-2 India. Talks, demos, and validator nights.",
-      img: meetupImg,
+      tag: "Hackathon",
+      title: "Block-A-Thon",
+      copy: "Our flagship campus hackathon. 54 teams and 198 participants built and pitched Web3 ideas across two intense days.",
+      img: blockathonImg,
       large: true,
     },
     {
-      icon: Rocket,
-      tag: "Hack Series",
-      title: "ABC Hack Nights",
-      copy: "48-hour micro-hackathons run monthly with prize pools from partner protocols.",
-      img: hackathonImg,
+      tag: "Flagship Event",
+      title: "Hashed! Genesis Ceremony",
+      copy: "The official launch ceremony of the club, marking the start of ABC as a campus Web3 community.",
+      img: hashedImg,
     },
     {
-      icon: GraduationCap,
-      tag: "Cohort",
-      title: "Workshop Series",
-      copy: "From Solidity 101 to ZK circuits — instructor-led tracks with shipping requirements.",
-      img: workshopImg,
-    },
-    {
-      icon: Users2,
-      tag: "Peer",
-      title: "Builder Study Groups",
-      copy: "Weekly co-working sessions where members pair on whitepapers, audits, and side projects.",
-    },
-    {
-      icon: Mic2,
-      tag: "Audio",
-      title: "ABC Podcast",
-      copy: "Long-form conversations with founders, researchers, and Indian Web3 operators.",
-    },
-    {
-      icon: Code2,
-      tag: "Live Build",
-      title: "Open Source Sundays",
-      copy: "Members contribute to open repos across the Solana, Ethereum, and Cosmos stacks.",
+      tag: "Workshop Series",
+      title: "Web3 Wave",
+      copy: "An onboarding series introducing students to wallets, transactions, and decentralized applications.",
+      img: web3waveImg,
     },
   ];
+
   return (
     <section className="relative py-24 lg:py-32">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal>
-          <SectionHeader
-            eyebrow="What we do"
-            title={<>Programs designed for <span className="text-brand-gradient">shipping</span>, not slides.</>}
-            description="Every program ends with something deployed — a contract, a demo, a paper, a product."
-          />
+          <div className="flex flex-wrap items-end justify-between gap-6">
+            <SectionHeader
+              eyebrow="Featured Events"
+              title={<>Programs that built our <span className="text-brand-gradient">community.</span></>}
+              description="A few of the events that shaped ABC into what it is today."
+            />
+            <Link to="/events" className="inline-flex items-center gap-2 text-sm text-foreground hover:text-brand">
+              All events <ArrowUpRight className="h-4 w-4" />
+            </Link>
+          </div>
         </Reveal>
 
-        <div className="mt-16 grid gap-4 md:grid-cols-6 md:gap-5">
-          {cards.map((c, i) => {
-            const span = c.large ? "md:col-span-4 md:row-span-2" : "md:col-span-2";
+        <div className="mt-14 grid gap-5 md:grid-cols-6">
+          {events.map((e, i) => {
+            const span = e.large ? "md:col-span-4 md:row-span-2" : "md:col-span-2";
             return (
-              <Reveal key={c.title} delay={i * 0.05} className={span}>
-                <article className={`group relative h-full overflow-hidden rounded-xl border border-border bg-surface/40 transition-all hover:border-brand/40 hover:bg-surface ${c.large ? "min-h-[420px]" : "min-h-[200px]"}`}>
-                  {c.img && (
-                    <>
-                      <img
-                        src={c.img}
-                        alt=""
-                        loading="lazy"
-                        className="absolute inset-0 h-full w-full object-cover opacity-40 transition-all duration-700 group-hover:scale-105 group-hover:opacity-50"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
-                    </>
-                  )}
-                  <div className="relative flex h-full flex-col justify-between p-6">
-                    <div className="flex items-center justify-between">
-                      <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/60 px-2.5 py-1 backdrop-blur-md">
-                        <c.icon className="h-3 w-3 text-brand" />
-                        <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">{c.tag}</span>
-                      </div>
-                      <ArrowUpRight className="h-4 w-4 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              <Reveal key={e.title} delay={i * 0.06} className={span}>
+                <article
+                  onClick={() => setSelectedEvent(e.title)}
+                  className={`group relative h-full cursor-pointer overflow-hidden rounded-xl border border-border bg-surface/40 transition-all hover:border-brand/40 ${
+                    e.large ? "min-h-[420px]" : "min-h-[200px]"
+                  }`}
+                >
+                  <img
+                    src={e.img}
+                    alt={e.title}
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full object-cover opacity-45 transition-all duration-700 group-hover:scale-105 group-hover:opacity-60"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-background/85 to-transparent" />
+                  <div className="relative flex h-full flex-col justify-between p-7">
+                    <div className="inline-flex w-fit items-center gap-2 rounded-full border border-border bg-background/70 px-2.5 py-1 backdrop-blur-md">
+                      <span className="h-1 w-1 rounded-full bg-brand" />
+                      <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground">
+                        {e.tag}
+                      </span>
                     </div>
-                    <div className="mt-auto">
-                      <h3 className={`font-display font-semibold tracking-tight ${c.large ? "text-2xl sm:text-3xl" : "text-lg"}`}>
-                        {c.title}
+                    <div>
+                      <h3 className={`font-display font-semibold tracking-tight ${e.large ? "text-3xl sm:text-4xl" : "text-xl"}`}>
+                        {e.title}
                       </h3>
-                      <p className="mt-2 max-w-md text-sm text-muted-foreground">{c.copy}</p>
+                      <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">{e.copy}</p>
                     </div>
                   </div>
                 </article>
@@ -223,235 +179,191 @@ function FeaturedActivities() {
           })}
         </div>
       </div>
+
+      <Dialog open={!!selectedEvent} onOpenChange={() => setSelectedEvent(null)}>
+        <DialogContent className="max-w-3xl p-0 overflow-hidden border-border bg-background sm:rounded-2xl">
+          <ScrollArea className="max-h-[90vh]">
+            {selectedDetails && (
+              <div className="pb-12">
+                <div className="relative flex items-center justify-center bg-muted/20 overflow-hidden">
+                  {/* Blurred Background */}
+                  <div 
+                    className="absolute inset-0 opacity-30 blur-2xl scale-110"
+                    style={{ 
+                      backgroundImage: `url(${selectedDetails.img})`,
+                      backgroundPosition: 'center',
+                      backgroundSize: 'cover'
+                    }}
+                  />
+                  <img
+                    src={selectedDetails.img}
+                    alt={selectedDetails.title}
+                    className="relative z-10 max-h-[400px] w-full object-contain"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-20" />
+                  <div className="absolute bottom-6 left-6 right-6 z-30">
+                    <Badge variant="outline" className="mb-3 border-brand/40 bg-brand/10 text-brand backdrop-blur-md">
+                      {selectedDetails.type}
+                    </Badge>
+                    <h2 className="font-display text-3xl font-bold tracking-tight text-white">{selectedDetails.title}</h2>
+                  </div>
+                </div>
+
+                <div className="px-6 pt-6 sm:px-8">
+                  <div className="grid gap-8 lg:grid-cols-12">
+                    <div className="lg:col-span-7 space-y-8">
+                      <section>
+                        <h4 className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+                          <Info className="h-3.5 w-3.5" /> Overview
+                        </h4>
+                        <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+                          {selectedDetails.overview}
+                        </p>
+                      </section>
+
+                      {selectedDetails.highlights && (
+                        <section>
+                          <h4 className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-brand">
+                            <Sparkles className="h-3.5 w-3.5" /> Key Highlights
+                          </h4>
+                          <ul className="mt-4 grid gap-3 sm:grid-cols-2">
+                            {selectedDetails.highlights.map((h: string, idx: number) => (
+                              <li key={idx} className="flex items-start gap-2 text-sm text-muted-foreground">
+                                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-brand/60" />
+                                {h}
+                              </li>
+                            ))}
+                          </ul>
+                        </section>
+                      )}
+
+                      {selectedDetails.impact && (
+                        <section className="rounded-xl border border-brand/20 bg-brand/5 p-5">
+                          <h4 className="font-mono text-[10px] uppercase tracking-[0.2em] text-brand">Impact</h4>
+                          <p className="mt-2 text-sm leading-relaxed text-foreground/90 italic">
+                            "{selectedDetails.impact}"
+                          </p>
+                        </section>
+                      )}
+                    </div>
+
+                    <div className="lg:col-span-5 space-y-6">
+                      <div className="rounded-xl border border-border bg-surface/50 p-6 space-y-5">
+                        <div className="space-y-4">
+                          <div className="flex gap-3">
+                            <CalendarIcon className="h-4 w-4 shrink-0 text-brand mt-0.5" />
+                            <div>
+                              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Date</div>
+                              <div className="mt-0.5 text-sm font-medium">{selectedDetails.date}</div>
+                            </div>
+                          </div>
+
+                          {selectedDetails.location && (
+                            <div className="flex gap-3">
+                              <MapPinIcon className="h-4 w-4 shrink-0 text-brand mt-0.5" />
+                              <div>
+                                <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Location</div>
+                                <div className="mt-0.5 text-sm font-medium">{selectedDetails.location}</div>
+                              </div>
+                            </div>
+                          )}
+
+                          <div className="flex gap-3">
+                            <BriefcaseIcon className="h-4 w-4 shrink-0 text-brand mt-0.5" />
+                            <div>
+                              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Organized By</div>
+                              <div className="mt-0.5 text-sm text-muted-foreground leading-snug">{selectedDetails.organizedBy || selectedDetails.presentedBy}</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        {selectedDetails.speakers && (
+                          <div className="pt-4 border-t border-border">
+                            <div className="flex items-center gap-2 mb-3 font-mono text-[10px] uppercase tracking-[0.2em] text-brand">
+                              <UserIcon className="h-3 w-3" /> Speakers & Mentors
+                            </div>
+                            <div className="space-y-2">
+                              {selectedDetails.speakers.map((s: string, idx: number) => (
+                                <div key={idx} className="text-sm text-muted-foreground leading-tight">
+                                  {s}
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
 
-/* ---------------- Learning Ecosystem ---------------- */
+/* ---------------- Community Moments ---------------- */
 
-function LearningEcosystem() {
-  const tracks = [
-    {
-      level: "01 / Beginner",
-      title: "Web3 Foundations",
-      bullets: ["Wallets & key management", "Reading on-chain data", "Solidity primer"],
-    },
-    {
-      level: "02 / Intermediate",
-      title: "Protocol Engineering",
-      bullets: ["dApp architecture", "EVM internals", "Smart contract testing"],
-    },
-    {
-      level: "03 / Advanced",
-      title: "Frontier Research",
-      bullets: ["Zero-knowledge circuits", "MEV & validator design", "Cross-chain protocols"],
-    },
+function CommunityMoments() {
+  const moments = [
+    { img: web3waveImg, label: "Workshop Sessions" },
+    { img: hashedImg, label: "Speaker Meetups" },
+    { img: blockathonImg, label: "Hackathon Floors" },
+    { img: web3waveImg, label: "Networking Nights" },
   ];
   return (
-    <section className="relative overflow-hidden py-28 lg:py-36">
-      <div className="absolute inset-0 bg-aurora opacity-50" />
-      <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30" />
-      <div className="relative mx-auto max-w-7xl px-5 lg:px-8">
+    <section className="relative border-t border-border/60 bg-surface/20 py-24 lg:py-28">
+      <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal>
           <SectionHeader
-            eyebrow="Learning Hub"
-            title={<>A structured gateway into <span className="text-brand-gradient">Web3.</span></>}
-            description="A three-tier curriculum, designed and maintained by ABC engineers, that mirrors how protocols actually hire."
+            eyebrow="Community Moments"
+            title={<>Real rooms. <span className="text-brand-gradient">Real builders.</span></>}
+            description="ABC is shaped by the people who show up. Workshops, sessions, late-night hack rooms, and the conversations between them."
           />
         </Reveal>
-
-        <div className="mt-16 grid gap-6 lg:grid-cols-3">
-          {tracks.map((t, i) => (
-            <Reveal key={t.title} delay={i * 0.08}>
-              <div className="group relative h-full overflow-hidden rounded-xl border border-border bg-surface/60 p-7 backdrop-blur-md transition-all hover:border-brand/40 hover:shadow-elevated">
-                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-brand">{t.level}</div>
-                <h3 className="mt-3 font-display text-2xl font-semibold tracking-tight">{t.title}</h3>
-                <ul className="mt-6 space-y-3 border-t border-border/60 pt-5">
-                  {t.bullets.map((b) => (
-                    <li key={b} className="flex items-center gap-3 text-sm text-foreground/85">
-                      <span className="h-1 w-1 rounded-full bg-brand" />
-                      {b}
-                    </li>
-                  ))}
-                </ul>
-                <div className="absolute -right-12 -top-12 h-40 w-40 rounded-full bg-brand/10 opacity-0 blur-3xl transition-opacity group-hover:opacity-100" />
+        <div className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {moments.map((m, i) => (
+            <Reveal key={i} delay={i * 0.05}>
+              <div className="group relative aspect-[4/5] overflow-hidden rounded-xl border border-border">
+                <img
+                  src={m.img}
+                  alt={m.label}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/90">
+                  {m.label}
+                </div>
               </div>
             </Reveal>
           ))}
         </div>
-
-        <Reveal delay={0.3}>
-          <div className="mt-12 flex justify-center">
-            <Link
-              to="/learning"
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-5 py-3 text-sm font-medium backdrop-blur-md hover:border-brand/40"
-            >
-              Open the Learning Hub <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
 }
 
-/* ---------------- Projects ---------------- */
+/* ---------------- Collaborations ---------------- */
 
-function ProjectsShowcase() {
-  const projects = [
-    {
-      icon: Box,
-      name: "Veil Marketplace",
-      tag: "NFT · Solana",
-      desc: "A creator-first NFT marketplace with on-chain royalties and cross-collection lending primitives.",
-      stats: [{ k: "$2.1M", v: "Volume" }, { k: "12K", v: "Mints" }],
-    },
-    {
-      icon: Building2,
-      name: "Plotchain",
-      tag: "Real Estate · EVM",
-      desc: "Tokenizing fractional real estate ownership in Tier-2 India with verified on-chain titles.",
-      stats: [{ k: "8", v: "Properties" }, { k: "1.4K", v: "Holders" }],
-    },
-    {
-      icon: Music,
-      name: "Sonic Protocol",
-      tag: "Music · L2",
-      desc: "A Web3 music platform paying artists per stream via micropayments and fan-owned playlists.",
-      stats: [{ k: "320", v: "Artists" }, { k: "98K", v: "Streams" }],
-    },
-  ];
-  return (
-    <section className="relative py-28 lg:py-36">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div className="max-w-2xl">
-              <Eyebrow>Built by members</Eyebrow>
-              <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-                Real products. <span className="text-brand-gradient">On-chain.</span>
-              </h2>
-            </div>
-            <Link to="/projects" className="inline-flex items-center gap-2 text-sm text-foreground hover:text-brand">
-              All projects <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </Reveal>
-
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {projects.map((p, i) => (
-            <Reveal key={p.name} delay={i * 0.08}>
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-xl border border-border bg-surface/40 transition-all hover:-translate-y-1 hover:border-brand/40 hover:shadow-elevated">
-                <div className="relative h-44 overflow-hidden border-b border-border bg-brand-gradient">
-                  <div className="absolute inset-0 bg-grid opacity-30 mix-blend-overlay" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent via-black/10 to-black/40" />
-                  <p.icon className="absolute right-5 top-5 h-8 w-8 text-white/80" />
-                  <div className="absolute bottom-4 left-5 font-mono text-[10px] uppercase tracking-[0.22em] text-white/80">
-                    {p.tag}
-                  </div>
-                </div>
-                <div className="flex flex-1 flex-col p-6">
-                  <h3 className="font-display text-xl font-semibold tracking-tight">{p.name}</h3>
-                  <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{p.desc}</p>
-                  <div className="mt-5 grid grid-cols-2 gap-4 border-t border-border/60 pt-4">
-                    {p.stats.map((s) => (
-                      <div key={s.v}>
-                        <div className="font-display text-lg font-semibold">{s.k}</div>
-                        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-                          {s.v}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Events Timeline ---------------- */
-
-function EventsTimeline() {
-  const events = [
-    { date: "May 2026", title: "Solana Meet-up Indore — Vol. 03", place: "AITR Auditorium", status: "Upcoming" },
-    { date: "Apr 2026", title: "ZK Workshop with Polygon", place: "ABC Lab", status: "Open" },
-    { date: "Mar 2026", title: "Build-a-Wallet Hack Night", place: "Online", status: "Past" },
-    { date: "Feb 2026", title: "EVM Internals Cohort", place: "AITR · Block C", status: "Past" },
-  ];
-  return (
-    <section className="relative border-y border-border/60 bg-surface/30 py-24 lg:py-32">
-      <div className="mx-auto max-w-7xl px-5 lg:px-8">
-        <Reveal>
-          <Eyebrow>The calendar</Eyebrow>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Events that move the <span className="text-brand-gradient">ecosystem.</span>
-          </h2>
-        </Reveal>
-        <div className="mt-14 divide-y divide-border/60 border-y border-border/60">
-          {events.map((e, i) => (
-            <Reveal key={e.title} delay={i * 0.05}>
-              <Link to="/events" className="group grid items-center gap-6 py-6 transition-colors hover:bg-white/[0.02] sm:grid-cols-12">
-                <div className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground sm:col-span-2">
-                  {e.date}
-                </div>
-                <div className="font-display text-xl font-medium tracking-tight sm:col-span-6">
-                  {e.title}
-                </div>
-                <div className="text-sm text-muted-foreground sm:col-span-3">{e.place}</div>
-                <div className="flex items-center justify-between gap-3 sm:col-span-1 sm:justify-end">
-                  <span
-                    className={`rounded-full border px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.18em] ${
-                      e.status === "Upcoming"
-                        ? "border-brand/50 bg-brand/10 text-brand"
-                        : e.status === "Open"
-                        ? "border-foreground/30 text-foreground"
-                        : "border-border text-muted-foreground"
-                    }`}
-                  >
-                    {e.status}
-                  </span>
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </div>
-              </Link>
-            </Reveal>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/* ---------------- Sponsors ---------------- */
-
-function Sponsors() {
-  const partners = ["SOLANA", "POLYGON", "ETHINDIA", "DEVFOLIO", "ARBITRUM", "BASE", "ALCHEMY", "GITCOIN"];
+function Collaborations() {
+  const partners = ["Solana", "Metaschool", "Systango", "Central DAO", "IEEE", "Hashed"];
   return (
     <section className="relative py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <div>
-              <Eyebrow>Backed by the ecosystem</Eyebrow>
-              <h2 className="mt-4 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
-                Partners & supporters
-              </h2>
-            </div>
-            <Link to="/partners" className="inline-flex items-center gap-2 text-sm hover:text-brand">
-              Become a partner <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
+          <Eyebrow>Collaborations</Eyebrow>
+          <h2 className="mt-4 max-w-2xl font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+            Programs run with people who build the ecosystem.
+          </h2>
         </Reveal>
-        <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-4">
+        <div className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-3 lg:grid-cols-6">
           {partners.map((p, i) => (
-            <Reveal key={p} delay={i * 0.03}>
-              <div className="group flex h-24 items-center justify-center bg-surface/40 transition-colors hover:bg-surface">
-                <span className="font-display text-xl font-semibold tracking-[0.15em] text-muted-foreground transition-colors group-hover:text-foreground">
-                  {p}
-                </span>
+            <Reveal key={p} delay={i * 0.04}>
+              <div className="flex h-24 items-center justify-center bg-background px-4 transition-colors hover:bg-surface">
+                <span className="font-display text-base font-semibold tracking-tight text-foreground/85">{p}</span>
               </div>
             </Reveal>
           ))}
@@ -461,85 +373,82 @@ function Sponsors() {
   );
 }
 
-/* ---------------- Team ---------------- */
+/* ---------------- Achievement Highlights ---------------- */
 
-function TeamPreview() {
-  const leads = [
-    { name: "Surabhi Solanki", role: "President", bio: "Leads ecosystem and strategy. Smart contracts, DeFi research." },
-    { name: "Parth Nagar", role: "Vice President", bio: "Engineering lead. Solana programs, dApp infra, hackathon ops." },
+function Achievements() {
+  const items = [
+    {
+      title: "Block-A-Thon Reach",
+      desc: "54 teams and 198 participants joined our flagship hackathon, making it one of the largest student Web3 events on campus.",
+    },
+    {
+      title: "Advisor Placements",
+      desc: "Members and advisors of ABC have moved into roles across Web3 ecosystems, research collectives, and engineering teams.",
+    },
+    {
+      title: "Ecosystem Collaborations",
+      desc: "ABC has hosted programs and sessions in collaboration with Solana, Metaschool, Systango, Central DAO, and IEEE.",
+    },
   ];
   return (
-    <section className="relative py-28 lg:py-36">
+    <section className="relative border-y border-border/60 bg-surface/30 py-24 lg:py-28">
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <Reveal>
-          <Eyebrow>The core</Eyebrow>
-          <h2 className="mt-4 font-display text-4xl font-semibold tracking-tight sm:text-5xl">
-            Built and led by <span className="text-brand-gradient">students.</span>
-          </h2>
+          <SectionHeader
+            eyebrow="Achievements"
+            title={<>Quiet wins, <span className="text-brand-gradient">real proof.</span></>}
+            description="Things the community is genuinely proud of. No inflated numbers, just what actually happened."
+          />
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-2">
-          {leads.map((m, i) => (
-            <Reveal key={m.name} delay={i * 0.1}>
-              <div className="group relative overflow-hidden rounded-xl border border-border bg-surface/40 p-7 transition-all hover:border-brand/40 hover:bg-surface">
-                <div className="flex items-center gap-5">
-                  <div className="grid h-16 w-16 place-items-center rounded-full bg-brand-gradient font-display text-2xl font-semibold text-white shadow-glow">
-                    {m.name.charAt(0)}
-                  </div>
-                  <div>
-                    <div className="font-display text-xl font-semibold tracking-tight">{m.name}</div>
-                    <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-brand">{m.role}</div>
-                  </div>
-                </div>
-                <p className="mt-6 text-sm leading-relaxed text-muted-foreground">{m.bio}</p>
-                <div className="absolute right-5 top-5 opacity-0 transition-opacity group-hover:opacity-100">
-                  <ArrowUpRight className="h-4 w-4 text-muted-foreground" />
-                </div>
+        <div className="mt-12 grid gap-5 lg:grid-cols-3">
+          {items.map((it, i) => (
+            <Reveal key={it.title} delay={i * 0.06}>
+              <div className="h-full rounded-xl border border-border bg-background/60 p-7 transition-all hover:border-brand/40">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-brand">0{i + 1}</div>
+                <h3 className="mt-3 font-display text-xl font-semibold tracking-tight">{it.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{it.desc}</p>
               </div>
             </Reveal>
           ))}
         </div>
-        <Reveal delay={0.3}>
-          <div className="mt-10">
-            <Link to="/team" className="inline-flex items-center gap-2 text-sm hover:text-brand">
-              Meet the full team <ArrowUpRight className="h-4 w-4" />
-            </Link>
-          </div>
-        </Reveal>
       </div>
     </section>
   );
 }
 
-/* ---------------- Community CTA ---------------- */
+/* ---------------- Join CTA ---------------- */
 
-function CommunityCTA() {
+function JoinCTA() {
   return (
-    <section className="relative overflow-hidden py-28">
-      <div className="absolute inset-0 bg-aurora opacity-70" />
-      <div className="absolute inset-0 bg-grid bg-grid-fade opacity-40" />
-      <div className="relative mx-auto max-w-5xl px-5 text-center lg:px-8">
+    <section className="relative overflow-hidden py-28 lg:py-36">
+      <div className="absolute inset-0">
+        <img src={collageImg} alt="" className="h-full w-full object-cover opacity-20" />
+        <div className="absolute inset-0 bg-aurora opacity-60" />
+        <div className="absolute inset-0 bg-grid bg-grid-fade opacity-30" />
+      </div>
+      <div className="relative mx-auto max-w-4xl px-5 text-center lg:px-8">
         <Reveal>
-          <Compass className="mx-auto h-8 w-8 text-brand" />
-          <h2 className="mt-6 font-display text-4xl font-semibold tracking-tight text-gradient sm:text-6xl">
-            Find your edge in Web3.
+          <Eyebrow>Join the Community</Eyebrow>
+          <h2 className="mt-5 font-display text-4xl font-semibold tracking-tight text-gradient sm:text-5xl">
+            Build with us at Acropolis.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-lg text-muted-foreground">
-            Whether you write Rust, Solidity, or just have a thesis you want to test on-chain — there's
-            a seat for you in the next cohort.
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground sm:text-lg">
+            Whether you write code, design products, research protocols, or just want to learn,
+            there is a place for you in ABC.
           </p>
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
+          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 rounded-md bg-foreground px-6 py-3 text-sm font-medium text-background shadow-elevated"
+              className="inline-flex items-center gap-2 rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background shadow-elevated"
             >
-              Apply to Join <ArrowUpRight className="h-4 w-4" />
+              Join the Community <ArrowUpRight className="h-4 w-4" />
             </Link>
-            <a
-              href="#"
-              className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-6 py-3 text-sm font-medium backdrop-blur-md hover:border-brand/40"
+            <Link
+              to="/about"
+              className="inline-flex items-center gap-2 rounded-md border border-border bg-surface/60 px-5 py-3 text-sm font-medium backdrop-blur-md hover:border-brand/40"
             >
-              <MessagesSquare className="h-4 w-4" /> Discord
-            </a>
+              Learn about ABC
+            </Link>
           </div>
         </Reveal>
       </div>

@@ -2,14 +2,16 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHeader } from "@/components/site/Section";
 import { Reveal } from "@/components/site/Reveal";
 import { Trophy, Users, Clock } from "lucide-react";
+import blockathonImg from "@/assets/images/blockathon.png";
+import collageImg from "@/assets/community-collage.jpg";
 
 export const Route = createFileRoute("/hackathons")({
   head: () => ({
     meta: [
-      { title: "Hackathons — ABC" },
+      { title: "Hackathons , ABC" },
       { name: "description", content: "Internal hack nights, ecosystem hackathons, and ABC's competitive cohort." },
       { property: "og:title", content: "ABC Hackathons" },
-      { property: "og:description", content: "We don't just compete — we organize, mentor, and ship." },
+      { property: "og:description", content: "We don't just compete , we organize, mentor, and ship." },
     ],
   }),
   component: Hackathons,
@@ -18,18 +20,24 @@ export const Route = createFileRoute("/hackathons")({
 const hacks = [
   { title: "ABC Hack Night · Wallet Edition", date: "Mar 2026", duration: "48h", teams: 14, prize: "$2,400", winner: "Team Trezor.zip" },
   { title: "ETHIndia Cohort '25", date: "Dec 2025", duration: "36h", teams: 9, prize: "Track Win", winner: "Plotchain" },
-  { title: "Solana Radar — Indore Pod", date: "Nov 2025", duration: "Global", teams: 6, prize: "$5K", winner: "Veil Marketplace" },
+  { title: "Solana Radar , Indore Pod", date: "Nov 2025", duration: "Global", teams: 6, prize: "$5K", winner: "Veil Marketplace" },
   { title: "ZK Hackathon · Polygon", date: "Oct 2025", duration: "72h", teams: 5, prize: "Top 10", winner: "ZK-Mail" },
 ];
 
 function Hackathons() {
   return (
     <>
-      <PageHeader
-        eyebrow="Hackathons"
-        title={<>Compete. Mentor. <span className="text-brand-gradient">Repeat.</span></>}
-        description="ABC fields teams in global hackathons and runs internal hack nights every month. Building under deadline is the point."
-      />
+      <div className="relative isolate overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <img src={collageImg} alt="" className="h-full w-full object-cover opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-background/40 to-background" />
+        </div>
+        <PageHeader
+          eyebrow="Hackathons"
+          title={<>Compete. Mentor. <span className="text-brand-gradient">Repeat.</span></>}
+          description="ABC fields teams in global hackathons and runs internal hack nights every month. Building under deadline is the point."
+        />
+      </div>
       <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
         <div className="grid gap-3 md:grid-cols-3">
           {[

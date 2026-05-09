@@ -6,7 +6,7 @@ import { ArrowUpRight, BookOpen, Code2, FileText, Wrench } from "lucide-react";
 export const Route = createFileRoute("/resources")({
   head: () => ({
     meta: [
-      { title: "Resources — ABC" },
+      { title: "Resources , ABC" },
       { name: "description", content: "Curated Web3 reading lists, dev tools, and learning resources." },
       { property: "og:title", content: "ABC Resources" },
       { property: "og:description", content: "The shortest path from zero to deployed contract." },

@@ -6,7 +6,7 @@ import { ArrowUpRight } from "lucide-react";
 export const Route = createFileRoute("/partners")({
   head: () => ({
     meta: [
-      { title: "Partners & Sponsors — ABC" },
+      { title: "Partners & Sponsors , ABC" },
       { name: "description", content: "Ecosystem partners and sponsors backing ABC's programs." },
       { property: "og:title", content: "ABC Partners" },
       { property: "og:description", content: "Protocols and foundations supporting student Web3 builders." },
@@ -27,7 +27,7 @@ function Partners() {
       <PageHeader
         eyebrow="Partners & Sponsors"
         title={<>Backed by the <span className="text-brand-gradient">ecosystem.</span></>}
-        description="ABC partners with protocols, foundations, and tooling teams to bring real opportunities — grants, hackathons, internships — to our members."
+        description="ABC partners with protocols, foundations, and tooling teams to bring real opportunities , grants, hackathons, internships , to our members."
       />
       <section className="mx-auto max-w-7xl px-5 py-24 lg:px-8">
         <div className="space-y-12">
